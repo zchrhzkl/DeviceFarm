@@ -14,8 +14,15 @@ services:
       - storage-temp
       - websocket
       - api
+  # adb:
+  #   image: zchrhzkl/adb:latest
+  #   restart: unless-stopped
+  #   privileged: true
+  #   volumes:
+  #     - /dev/bus/usb:/dev/bus/usb
+
   adb:
-    image: zchrhzkl/adb:latest
+    image: codeskyblue/adb:latest
     restart: unless-stopped
     privileged: true
     volumes:
@@ -79,7 +86,7 @@ services:
   provider:
     image: zchrhzkl/stf:latest
     restart: unless-stopped
-    command: stf provider --name ${STATION_NAME} --connect-sub tcp://dev-triproxy:7250 --connect-push tcp://dev-triproxy:7270 --storage-url http://${PUBLIC_IP}/ --public-ip ${PUBLIC_IP} --heartbeat-interval 10000 --screen-ws-url-pattern "ws://${PUBLIC_IP}/d/nuc/<%= serial %>/<%= publicPort %>/" --adb-host adb --min-port 7400 --max-port 7700 --allow-remote
+    command: stf provider --name ${STATION_NAME} --connect-sub tcp://dev-triproxy:7250 --connect-push tcp://dev-triproxy:7270 --storage-url http://${PUBLIC_IP}/ --public-ip ${PUBLIC_IP} --heartbeat-interval 10000 --screen-ws-url-pattern "ws://${PUBLIC_IP}/d/nuc/<%= serial %>/<%= publicPort %>/" --adb-host 192.168.1.26 --min-port 7400 --max-port 7700 --allow-remote
     ports:
       - 7400-7700:7400-7700
     depends_on:
