@@ -1,6 +1,8 @@
-FROM openstf/stf:latest
+FROM zchrhzkl/stf:latest
 
 USER root
-RUN mkdir data && chown stf:stf data
+WORKDIR /app
+RUN mkdir data
+RUN chown stf:stf data
 USER stf
 VOLUME ["data"]
